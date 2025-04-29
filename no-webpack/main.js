@@ -53,7 +53,7 @@ function removeAllChildNodes(parent) {
         parent.removeChild(parent.firstChild);
     }
 }
-const projectSidebar=document.getElementById("sidebar");
+const projectSidebar=document.getElementById("projects");
 function displayProjectNames(){
     removeAllChildNodes(projectSidebar);
     projectArray.forEach((obj)=>{
@@ -98,6 +98,7 @@ function displayProjectContent(obj,container){
 const selectTodos=document.getElementById("todos");
 selectTodos.addEventListener("click",()=>{
     displayTodosArray();
+    alert("clicked");
 })
 function displayTodosArray(){
     const container=getContainer();
@@ -111,3 +112,4 @@ function displayTodosArray(){
         container.appendChild(dueDate);
     })
 }
+//
