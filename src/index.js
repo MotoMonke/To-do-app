@@ -1,3 +1,4 @@
+import "./styles.css";
 //todos
 class Todo{
     constructor(name,dueDate){
