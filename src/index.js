@@ -52,6 +52,7 @@ function displayProject(obj){
     container.appendChild(projectName);
     container.appendChild(newTodoButton);
     obj.array.forEach(element=>{
+        //get name and date
         const name=element.name;
         const date=element.date;
         const nameText=document.createElement("div");
@@ -60,8 +61,19 @@ function displayProject(obj){
         dateText.innerText=date;
         const todoDiv=document.createElement("div");
         todoDiv.className="todo-div";
+        //delete todo button
+        const deleteTodoButton = document.createElement("button");
+        deleteTodoButton.innerText = "Delete";
+        deleteTodoButton.addEventListener("click",()=>{
+            const index=obj.array.indexOf(element);
+            obj.array.splice(index,1);
+            saveProjectArray();
+            displayProject(obj);
+        })
+        //
         todoDiv.appendChild(nameText);
         todoDiv.appendChild(dateText);
+        todoDiv.appendChild(deleteTodoButton);
         container.appendChild(todoDiv);
     })
 }
