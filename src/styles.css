@@ -7,3 +7,13 @@ body{
     font-size: 2rem;
     font-weight: bold;
 }
+.todo-div{
+    display:flex;
+    flex-direction:row;
+}
+.object-name {
+    display: flex;
+    
+    align-items: center;
+    margin-bottom: 5px;
+  }

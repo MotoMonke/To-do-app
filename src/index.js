@@ -17,6 +17,14 @@ function newTodo(project){
 }
 
 let projectsArray=loadProjectArray();
+function deleteObj(obj){
+    const index=projectsArray.indexOf(obj);
+    projectsArray.splice(index,1);
+    saveProjectArray();
+    displayProjectNames();
+    const container=document.getElementById("container");
+    removeAllChildNodes(container);
+}
 //DOM
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
@@ -58,16 +66,28 @@ function displayProject(obj){
     })
 }
 function displayProjectNames(){
-    const container=document.getElementById("sidebar");
-    removeAllChildNodes(container);
+    const sidebar=document.getElementById("sidebar");
+    removeAllChildNodes(sidebar);
     projectsArray.forEach(element => {
+        //container of name div and delete button
+        const objNameContainer=document.createElement("div");
+        objNameContainer.className="object-name";
+        sidebar.appendChild(objNameContainer);
+        //name div
         const nameDiv=document.createElement("div");
         nameDiv.innerText=element.name;
-        container.appendChild(nameDiv);
         nameDiv.addEventListener("click",()=>{
             alert("clicked");
             displayProject(element);
         })
+        objNameContainer.appendChild(nameDiv);
+        //delete object button
+        const deleteObjButton=document.createElement("button");
+        deleteObjButton.innerText="Delete";
+        deleteObjButton.addEventListener("click",()=>{
+            deleteObj(element);
+        }); 
+        objNameContainer.appendChild(deleteObjButton);
     });
 }
 displayProjectNames();
