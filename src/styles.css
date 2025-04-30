@@ -2,12 +2,8 @@ body{
     display: flex;
     flex-direction: column;
 }
-#nameDiv{
+.project-name{
     color:red;
     font-size: 2rem;
     font-weight: bold;
-}
-#todos{
-    font-size:2rem;
-    font-weight:bold;
 }
