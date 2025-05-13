@@ -9,10 +9,17 @@ module.exports={
         path: path.resolve(__dirname, "dist"),
         clean: true,
       },
-      devtool: "eval-source-map",
-        devServer: {
-            watchFiles: ["./src/template.html"],
+      devServer: {
+        static: {
+          directory: path.join(__dirname, 'dist'),
         },
+        port: 3000,
+        open: true,
+        hot: true,
+        watchFiles: ["./src/template.html"],
+      },
+      
+      devtool: "eval-source-map",
       plugins: [
         new HtmlWebpackPlugin({
           template: "./src/template.html",
