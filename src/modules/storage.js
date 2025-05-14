@@ -45,4 +45,16 @@ function deleteTODO(project,TODO){
     project.todoArray.splice(index,1);
     saveProjectsArray();
 }
+//TODO's separate array
+function loadTODOarray(){
+    const data=localStorage.getItem("TODO");
+    return data ? JSON.parse(data) : [];
+}
+let TODOarray=loadTODOarray();
+function saveTODOarray(){
+    localStorage.setItem("TODO",JSON.stringify(TODOarray));
+}
+
+//project export
 export{createNewProject,getProjectsArray,deleteProject,createTODO,deleteTODO};
+//TODO export
