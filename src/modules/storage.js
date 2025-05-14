@@ -31,4 +31,18 @@ function createNewProject(projectName){
     const newProject=new Project(projectName);
     saveNewProject(newProject);
 }
-export{createNewProject,getProjectsArray,deleteProject};
+//Project TODO's
+function addTODO(TODO,project){
+    project.todoArray.push(TODO);
+    saveProjectsArray();
+}
+function createTODO(project,name,description,dueDate){
+    const TODO={name,description,dueDate};
+    addTODO(TODO,project);
+}
+function deleteTODO(project,TODO){
+    const index=project.todoArray.indexOf(TODO);
+    project.todoArray.splice(index,1);
+    saveProjectsArray();
+}
+export{createNewProject,getProjectsArray,deleteProject,createTODO,deleteTODO};

@@ -2,18 +2,7 @@ body{
     display: flex;
     flex-direction: column;
 }
-.project-name{
-    color:red;
-    font-size: 2rem;
-    font-weight: bold;
-}
-.todo-div{
-    display:flex;
-    flex-direction:row;
-}
-.object-name {
+#container{
     display: flex;
-    
-    align-items: center;
-    margin-bottom: 5px;
-  }
+    flex-direction: column;
+}
