@@ -31,3 +31,19 @@ function deleteTODO(obj){
     deleteItem('TODO',TODOarray,obj);
 }
 export {createTODO,deleteTODO,getTODOarray};
+//projects
+let projectsArray=loadData('Projects');
+function getProjectArray(){
+    return projectsArray;
+}
+function createProject(name){
+    const project={
+        name:name,
+        TODOarray:[]
+    }
+    createItem('Projects',projectsArray,project);
+}
+function deleteProject(obj){
+    deleteItem('Projects',projectsArray,obj);
+}
+export {getProjectArray,createProject,deleteProject}

@@ -1,4 +1,5 @@
 import { createTODO,deleteTODO,getTODOarray } from "./storage";
+import { getProjectArray,createProject,deleteProject } from "./storage";
 //removeAllChildNodes
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
@@ -12,8 +13,8 @@ function inputTODO(){
     const dueDate=window.prompt('Due date');
     createTODO(name,description,dueDate);
 }
-function displayTODO(container){
-    
+function displayTODO(){
+    const container=document.getElementById('content');
     removeAllChildNodes(container);
     const arr=getTODOarray();
     // add TODO button
@@ -55,4 +56,43 @@ function displayTODO(container){
         container.appendChild(TODO);
     });
 }
-export {displayTODO};
+
+
+function displayProjectNames(){
+    const sidebar=document.getElementById('project-names');
+    removeAllChildNodes(sidebar)
+    const projects=getProjectArray();
+    projects.forEach((element)=>{
+        const projectName=document.createElement('div');
+        projectName.innerText=element.name;
+        projectName.className='sidebar-projectname';
+        sidebar.appendChild(projectName);
+        projectName.addEventListener('click',()=>{
+            displayProject(element);
+        })
+    })
+}
+function inputProjectName(){
+    const name=window.prompt('Project name:');
+    createProject(name);
+    displayProjectNames();
+}
+function displayProject(obj){
+    //project name
+    const container=document.getElementById('content');
+    removeAllChildNodes(container);
+    const projectName=document.createElement('h1')
+    projectName.innerText=obj.name;
+    container.appendChild(projectName);
+    //delete project
+    const deleteProjectBtn=document.createElement('button');
+    deleteProjectBtn.innerText='Delete this project';
+    container.appendChild(deleteProjectBtn);
+    deleteProjectBtn.addEventListener('click',()=>{
+        deleteProject(obj);
+        removeAllChildNodes(container);
+        displayProjectNames();
+    })    
+}
+export{inputProjectName,displayProjectNames,displayTODO}
+
