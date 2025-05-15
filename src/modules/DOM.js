@@ -1,80 +1,58 @@
-import { getProjectsArray,deleteProject,createTODO,deleteTODO} from "./storage";
-function inputNewProjectName(){
-    return window.prompt('Project name');
-}
+import { createTODO,deleteTODO,getTODOarray } from "./storage";
+//removeAllChildNodes
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
         parent.removeChild(parent.firstChild);
     }
 }
-function displayProjectNames(){
-    const projectsArray=getProjectsArray()
-    const sidebar=document.getElementById('sidebar');
-    removeAllChildNodes(sidebar);
-    projectsArray.forEach(element => {
-        //adds clickable project name to sidebar and delete button
-        ///project name
-        const nameDiv=document.createElement('div');
-        nameDiv.className='project-name';
-        nameDiv.innerText=element.name;
-        nameDiv.addEventListener('click',()=>{
-            displayProject(element);
-        })
-        ///delete button
-        const deleteButton=document.createElement('button');
-        deleteButton.innerText='Delete Project';
-        deleteButton.addEventListener('click',()=>{
-            deleteProject(element);
-            displayProjectNames();
-        });
-        sidebar.appendChild(deleteButton);
-        sidebar.appendChild(nameDiv);
-    });
-}
-function displayProject(project){
-    //project name
-    const container=document.getElementById('container');
-    removeAllChildNodes(container);
-    const projectName=document.createElement('h1');
-    projectName.innerText=project.name;
-    container.appendChild(projectName);
-    //project TODO's
-    //add TODO button
-    const addTODObtn=document.createElement('button');
-    addTODObtn.innerText='add TODO';
-    addTODObtn.addEventListener('click',()=>{
-        inputNewTODO(project);
-        displayProject(project);
-    })
-    container.appendChild(addTODObtn);
-    //display TODO's
-    project.todoArray.forEach(element=>{
-        //delete TODO button
-        const deleteTODObtn=document.createElement('button');
-        deleteTODObtn.innerText='delete TODO';
-        deleteTODObtn.addEventListener('click',()=>{
-            deleteTODO(project,element);
-            displayProject(project);
-        });
-        container.appendChild(deleteTODObtn);
-        //TODO name
-        const todoName=document.createElement('div');
-        todoName.innerText=element.name;
-        container.appendChild(todoName);
-        //TODO description
-        const description=document.createElement('div');
-        description.innerText=element.description;
-        container.appendChild(description);
-        //TODO due date
-        const dueDate=document.createElement('div');
-        dueDate.innerText=element.dueDate;
-        container.appendChild(dueDate);
-    });
-}
-function inputNewTODO(project){
+//TODO
+function inputTODO(){
     const name=window.prompt('TODO name:');
-    const description=window.prompt('TODO description:');
-    const dueDate=window.prompt('due date:');
-    createTODO(project,name,description,dueDate);
+    const description=window.prompt('Description');
+    const dueDate=window.prompt('Due date');
+    createTODO(name,description,dueDate);
 }
-export {inputNewProjectName,displayProjectNames};
+function displayTODO(container){
+    
+    removeAllChildNodes(container);
+    const arr=getTODOarray();
+    // add TODO button
+    const addBtn=document.createElement('button');
+    addBtn.innerText='Create new TODO';
+    addBtn.className='TODO-create';
+    addBtn.addEventListener('click',()=>{
+        inputTODO();
+        displayTODO(container);
+    })
+    container.appendChild(addBtn);
+    arr.forEach((element) => {
+        //container for separate todo
+        const TODO=document.createElement('div');
+        TODO.className="TODO";
+        //name,description,due date
+        const name=document.createElement('div');
+        name.className="TODO-name";
+        const description=document.createElement('div');
+        description.className="TODO-description";
+        const dueDate=document.createElement('div');
+        dueDate.className="TODO-date";
+        name.innerText=element.name;
+        description.innerText=element.description;
+        dueDate.innerText=element.dueDate;
+        //delete button for each todo
+        const deleteBtn=document.createElement('button');
+        deleteBtn.innerText='Delete TODO';
+        deleteBtn.className='TODO-delete';
+        deleteBtn.addEventListener('click',()=>{
+            deleteTODO(element);
+            displayTODO(container);
+        })
+        //appending childs
+        TODO.appendChild(name);
+        TODO.appendChild(description);
+        TODO.appendChild(dueDate);
+        TODO.appendChild(deleteBtn);
+        container.appendChild(TODO);
+    });
+}
+export {displayTODO};

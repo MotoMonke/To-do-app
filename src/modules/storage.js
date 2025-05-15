@@ -1,60 +1,33 @@
-//Local storage
-function loadProjectsArray(){
-    const data=localStorage.getItem("Projects");
+//local storage
+function loadData(key) {
+    const data = localStorage.getItem(key);
     return data ? JSON.parse(data) : [];
-}
-let projectsArray=loadProjectsArray();
-function saveProjectsArray(){
-    localStorage.setItem("Projects",JSON.stringify(projectsArray));
-}
-function getProjectsArray(){
-    return projectsArray;
-}
-//saving/deleting projects from projectArray and local storage
-function saveNewProject(obj){
-    projectsArray.push(obj);
-    saveProjectsArray();
-}
-function deleteProject(obj){
-    const index=projectsArray.indexOf(obj);
-    projectsArray.splice(index,1);
-    saveProjectsArray();
-}
-//creating Project obj
-class Project{
-    constructor(name){
-        this.name=name;
-        this.todoArray=[];
-    }
-}
-function createNewProject(projectName){
-    const newProject=new Project(projectName);
-    saveNewProject(newProject);
-}
-//Project TODO's
-function addTODO(TODO,project){
-    project.todoArray.push(TODO);
-    saveProjectsArray();
-}
-function createTODO(project,name,description,dueDate){
-    const TODO={name,description,dueDate};
-    addTODO(TODO,project);
-}
-function deleteTODO(project,TODO){
-    const index=project.todoArray.indexOf(TODO);
-    project.todoArray.splice(index,1);
-    saveProjectsArray();
-}
-//TODO's separate array
-function loadTODOarray(){
-    const data=localStorage.getItem("TODO");
-    return data ? JSON.parse(data) : [];
-}
-let TODOarray=loadTODOarray();
-function saveTODOarray(){
-    localStorage.setItem("TODO",JSON.stringify(TODOarray));
 }
 
-//project export
-export{createNewProject,getProjectsArray,deleteProject,createTODO,deleteTODO};
-//TODO export
+function saveData(key, array) {
+    localStorage.setItem(key, JSON.stringify(array));
+}
+
+function createItem(key, array, obj) {
+    array.push(obj);
+    saveData(key, array);
+}
+
+function deleteItem(key,array,obj){
+    const index = array.indexOf(obj);
+    array.splice(index,1);
+    saveData(key, array);
+}
+//TODO
+let TODOarray=loadData('TODO');
+function getTODOarray(){
+    return TODOarray;
+}
+function createTODO(name,description,dueDate){
+    const obj = {name,description,dueDate};
+    createItem('TODO',TODOarray,obj);
+}
+function deleteTODO(obj){
+    deleteItem('TODO',TODOarray,obj);
+}
+export {createTODO,deleteTODO,getTODOarray};
