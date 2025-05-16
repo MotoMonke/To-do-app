@@ -22,4 +22,4 @@ function deleteTODO(obj){
     data.splice(index,1);
     saveData();
 }
-export{createTODO,deleteTODO,getData};
+export{createTODO,deleteTODO,getData,saveData};

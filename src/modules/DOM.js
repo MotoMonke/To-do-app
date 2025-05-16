@@ -1,4 +1,4 @@
-import { getData,deleteTODO } from "./storage";
+import { getData,deleteTODO, saveData } from "./storage";
 import "../styles.css";
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
@@ -13,13 +13,23 @@ function displayTODO(){
         //
         const TODOdiv=document.createElement('div');
         TODOdiv.className='TODO';
-        //data of todo
+        //name of todo
         const name=document.createElement('div');
         name.className='TODO-name'
         name.innerText=element.TODOname;
-        const date=document.createElement('div');
-        date.className='TODO-date'
-        date.innerText=element.date;
+        //due date
+        const dateInput = document.createElement('input');
+        dateInput.type = 'date';
+        const dateText = document.createElement('div')
+        dateText.innerText = element.date || 'No date';
+        dateText.addEventListener('click', () => {
+            dateText.replaceWith(dateInput);
+            dateInput.addEventListener('change',()=>{
+                element.date = dateInput.value;
+                displayTODO();
+                saveData();
+            })
+        });
         //delete todo
         const deleteTODObtn=document.createElement('button');
         deleteTODObtn.innerText='Delete';
@@ -29,7 +39,7 @@ function displayTODO(){
         })
         //appending childs
         TODOdiv.appendChild(name);
-        TODOdiv.appendChild(date);
+        TODOdiv.appendChild(dateText);
         TODOdiv.appendChild(deleteTODObtn);
         container.appendChild(TODOdiv);
     });
