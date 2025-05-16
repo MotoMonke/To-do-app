@@ -1,5 +1,5 @@
 import { createTODO,deleteTODO,getTODOarray } from "./storage";
-import { getProjectArray,createProject,deleteProject } from "./storage";
+import { getProjectArray,createProject,deleteProject,createProjectTODO,deleteProjectTODO} from "./storage";
 //removeAllChildNodes
 function removeAllChildNodes(parent) {
     while (parent.firstChild) {
@@ -14,6 +14,13 @@ function inputTODO(){
     createTODO(name,description,dueDate);
 }
 function displayTODO(){
+    //header
+    const header=document.getElementById('content-header')
+    removeAllChildNodes(header);
+    const headerText=document.createElement('h1');
+    headerText.innerText='My TODO';
+    header.appendChild(headerText);
+    //
     const container=document.getElementById('content');
     removeAllChildNodes(container);
     const arr=getTODOarray();
@@ -23,7 +30,7 @@ function displayTODO(){
     addBtn.className='TODO-create';
     addBtn.addEventListener('click',()=>{
         inputTODO();
-        displayTODO(container);
+        displayTODO();
     })
     container.appendChild(addBtn);
     arr.forEach((element) => {
@@ -46,7 +53,7 @@ function displayTODO(){
         deleteBtn.className='TODO-delete';
         deleteBtn.addEventListener('click',()=>{
             deleteTODO(element);
-            displayTODO(container);
+            displayTODO();
         })
         //appending childs
         TODO.appendChild(name);
@@ -56,8 +63,7 @@ function displayTODO(){
         container.appendChild(TODO);
     });
 }
-
-
+//projects
 function displayProjectNames(){
     const sidebar=document.getElementById('project-names');
     removeAllChildNodes(sidebar)
@@ -77,9 +83,58 @@ function inputProjectName(){
     createProject(name);
     displayProjectNames();
 }
+function inputProjectTODO(project){
+    const name=window.prompt('TODO name:');
+    const description=window.prompt('Description');
+    const dueDate=window.prompt('Due date');
+    createProjectTODO(project,name,description,dueDate);
+}
+function displayProjectTODO(project){
+    const container=document.getElementById('content');
+    removeAllChildNodes(container);
+    const arr=project.TODOarray;
+    // add TODO button
+    const addBtn=document.createElement('button');
+    addBtn.innerText='Create new TODO';
+    addBtn.className='TODO-create';
+    addBtn.addEventListener('click',()=>{
+        inputProjectTODO(project);
+        displayProjectTODO(project);
+    })
+    container.appendChild(addBtn);
+    arr.forEach((element) => {
+        //container for separate todo
+        const TODO=document.createElement('div');
+        TODO.className="TODO";
+        //name,description,due date
+        const name=document.createElement('div');
+        name.className="TODO-name";
+        const description=document.createElement('div');
+        description.className="TODO-description";
+        const dueDate=document.createElement('div');
+        dueDate.className="TODO-date";
+        name.innerText=element.name;
+        description.innerText=element.description;
+        dueDate.innerText=element.dueDate;
+        //delete button for each todo
+        const deleteBtn=document.createElement('button');
+        deleteBtn.innerText='Delete TODO';
+        deleteBtn.className='TODO-delete';
+        deleteBtn.addEventListener('click',()=>{
+            deleteProjectTODO(project,element);
+            displayProjectTODO(project);
+        })
+        //appending childs
+        TODO.appendChild(name);
+        TODO.appendChild(description);
+        TODO.appendChild(dueDate);
+        TODO.appendChild(deleteBtn);
+        container.appendChild(TODO);
+    });
+}
 function displayProject(obj){
     //project name
-    const container=document.getElementById('content');
+    const container=document.getElementById('content-header');
     removeAllChildNodes(container);
     const projectName=document.createElement('h1')
     projectName.innerText=obj.name;
@@ -92,7 +147,8 @@ function displayProject(obj){
         deleteProject(obj);
         removeAllChildNodes(container);
         displayProjectNames();
-    })    
+    })
+    displayProjectTODO(obj);
 }
 export{inputProjectName,displayProjectNames,displayTODO}
 

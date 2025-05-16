@@ -46,4 +46,14 @@ function createProject(name){
 function deleteProject(obj){
     deleteItem('Projects',projectsArray,obj);
 }
-export {getProjectArray,createProject,deleteProject}
+function createProjectTODO(project,name,description,dueDate){
+    const TODO={name,description,dueDate};
+    project.TODOarray.push(TODO);
+    saveData('Projects', projectsArray);
+}
+function deleteProjectTODO(project,TODO){
+    const index =project.TODOarray.indexOf(TODO);
+    project.TODOarray.splice(index,1);
+    saveData('Projects',projectsArray)
+}
+export {getProjectArray,createProject,deleteProject,createProjectTODO,deleteProjectTODO}
