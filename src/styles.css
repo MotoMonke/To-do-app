@@ -119,18 +119,17 @@ header h1 {
     transform: scale(1.3);
     cursor: pointer;
 }
-
+/*input name font size*/
+#input-name{
+    font-size: 1.3rem;
+}
 /* Responsive adjustments */
 @media (max-width: 480px) {
     #create-TODO-section form {
         flex-direction: column;
     }
-
-    .TODO {
-        flex-direction: column;
-        align-items: flex-start;
-    }
-
+    
+    
     .TODO button {
         align-self: flex-end;
     }
