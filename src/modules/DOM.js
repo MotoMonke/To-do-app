@@ -13,6 +13,15 @@ function displayTODO(){
         //
         const TODOdiv=document.createElement('div');
         TODOdiv.className='TODO';
+        //checkbox
+        const checkbox=document.createElement('input');
+        checkbox.type='checkbox';
+        checkbox.checked=element.completed;
+        checkbox.addEventListener('change',()=>{
+            element.completed=checkbox.checked;
+            saveData();
+            displayTODO();
+        })
         //name of todo
         const name=document.createElement('div');
         name.className='TODO-name'
@@ -26,8 +35,8 @@ function displayTODO(){
             dateText.replaceWith(dateInput);
             dateInput.addEventListener('change',()=>{
                 element.date = dateInput.value;
-                displayTODO();
                 saveData();
+                displayTODO();
             })
         });
         //delete todo
@@ -38,6 +47,7 @@ function displayTODO(){
             displayTODO();
         })
         //appending childs
+        TODOdiv.appendChild(checkbox);
         TODOdiv.appendChild(name);
         TODOdiv.appendChild(dateText);
         TODOdiv.appendChild(deleteTODObtn);
