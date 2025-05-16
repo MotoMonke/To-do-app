@@ -12,7 +12,11 @@ function displayTODO(){
     array.forEach(element => {
         //
         const TODOdiv=document.createElement('div');
-        TODOdiv.className='TODO';
+        if(element.completed===true){
+            TODOdiv.className='TODO completed';
+        }else{
+            TODOdiv.className='TODO';
+        }
         //checkbox
         const checkbox=document.createElement('input');
         checkbox.type='checkbox';
