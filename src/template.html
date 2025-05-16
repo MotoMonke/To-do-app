@@ -10,18 +10,24 @@
         <div id="TODO's">TODO</div>
         <div>My projects</div>
         <button id="add-project">New project</button>
+        
         <div id="project-names"></div>
     </div>
     <main>
         <div id="content-header"></div>
         <div id="content"></div>
     </main>
-    <dialog data-modal>
-        <form>
+    <dialog data-modal id="TODO-dialog">
+        <form id="new-TODO-form">
             <input type="text" id="new-TODO-name" required>
             <input type="text" id="new-TODO-description">
             <input type="date" id="new-TODO-date" required>
             <button>Submit</button>
+        </form>
+    </dialog>
+    <dialog data-modal id="project-dialog">
+        <form id="new-project-form">
+            <input type="text" id="new-project-name">
         </form>
     </dialog>
 </body>

@@ -13,6 +13,21 @@ function inputTODO(){
     const dueDate=window.prompt('Due date');
     createTODO(name,description,dueDate);
 }
+//new TODO dialog form
+const form=document.getElementById('new-TODO-form');
+const modal=document.getElementById('TODO-dialog');
+form.addEventListener('submit',(e)=>{
+    e.preventDefault();
+    const name=document.getElementById('new-TODO-name');
+    const description=document.getElementById('new-TODO-description');
+    const date=document.getElementById('new-TODO-date');
+    createTODO(name.value,description.value,date.value);
+    name.value='';
+    description.value='';
+    date.value='';
+    modal.close();
+    displayTODO();
+});
 function displayTODO(){
     //header
     const header=document.getElementById('content-header')
@@ -20,29 +35,17 @@ function displayTODO(){
     const headerText=document.createElement('h1');
     headerText.innerText='My TODO';
     header.appendChild(headerText);
+    // add TODO button
+    const addBtn=document.createElement('button');
+    addBtn.innerText='New TODO';
+    addBtn.addEventListener('click',()=>{
+        modal.showModal();
+    })
+    header.appendChild(addBtn);
     //
     const container=document.getElementById('content');
     removeAllChildNodes(container);
     const arr=getTODOarray();
-    // add TODO button
-    const addBtn=document.createElement('button');
-    addBtn.innerText='Create new TODO';
-    addBtn.className='TODO-create';
-    addBtn.addEventListener('click',()=>{
-        const modal=document.querySelector('[data-modal]');
-        modal.showModal();
-        const form=document.querySelector('form');
-        form.addEventListener('submit',(e)=>{
-            e.preventDefault();
-            const name=document.getElementById('new-TODO-name');
-            const description=document.getElementById('new-TODO-description');
-            const date=document.getElementById('new-TODO-date');
-            createTODO(name.value,description.value,date.value);
-            modal.close();
-            displayTODO();
-        });
-    })
-    container.appendChild(addBtn);
     arr.forEach((element) => {
         //container for separate todo
         const TODO=document.createElement('div');
