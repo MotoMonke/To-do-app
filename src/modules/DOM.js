@@ -29,8 +29,18 @@ function displayTODO(){
     addBtn.innerText='Create new TODO';
     addBtn.className='TODO-create';
     addBtn.addEventListener('click',()=>{
-        inputTODO();
-        displayTODO();
+        const modal=document.querySelector('[data-modal]');
+        modal.showModal();
+        const form=document.querySelector('form');
+        form.addEventListener('submit',(e)=>{
+            e.preventDefault();
+            const name=document.getElementById('new-TODO-name');
+            const description=document.getElementById('new-TODO-description');
+            const date=document.getElementById('new-TODO-date');
+            createTODO(name.value,description.value,date.value);
+            modal.close();
+            displayTODO();
+        });
     })
     container.appendChild(addBtn);
     arr.forEach((element) => {

@@ -6,15 +6,23 @@
     <title>Document</title>
 </head>
 <body>
-    <button id="add-project">New project</button>
     <div id="sidebar">
         <div id="TODO's">TODO</div>
         <div>My projects</div>
+        <button id="add-project">New project</button>
         <div id="project-names"></div>
     </div>
     <main>
         <div id="content-header"></div>
         <div id="content"></div>
     </main>
+    <dialog data-modal>
+        <form>
+            <input type="text" id="new-TODO-name" required>
+            <input type="text" id="new-TODO-description">
+            <input type="date" id="new-TODO-date" required>
+            <button>Submit</button>
+        </form>
+    </dialog>
 </body>
 </html>
